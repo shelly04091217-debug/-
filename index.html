@@ -109,6 +109,7 @@ img{max-width:100%}
   <span class="dot" style="background:#E6B800" onclick="col('#E6B800',this)"></span>
   <button class="bt" onclick="undo()">↶ 復原</button>
   <button class="bt" onclick="clr()">🗑️ 清除筆跡</button>
+  <button class="bt" id="fs" onclick="fsT()" style="margin-left:auto">⛶ 全螢幕</button>
 </div>
 
 <main>
@@ -240,7 +241,7 @@ img{max-width:100%}
       2. 現代工商業發達加上 <span class="bl" onclick="rv(this,'新住民與移工')">④ 點擊揭曉</span> 增加，出現不同文化的商店，呈現多元風貌。<br>
       3. 老街中的傳統建築保留了過去家鄉先民的 <span class="bl" onclick="rv(this,'生活記憶')">⑤ 點擊揭曉</span> 與傳統文化之美，我們要一起共同維護！
     </div>
-    <div class="qb" style="text-align:center;margin-top:14px">最後，一起想一想：今天的三個重點是什麼？（先讓學生回答，老師再點一下揭曉）</div>
+    <div class="qb" style="text-align:center;margin-top:14px">最後，一起想一想：今天的三個重點是什麼？</div>
     <div class="g">
       <div class="kp" onclick="this.classList.toggle('s')"><div class="kh">1️⃣ 想一想：隨著時代改變，老街的樣子會一樣嗎？</div><div class="ka">✅ 老街會轉變</div></div>
       <div class="kp" onclick="this.classList.toggle('s')"><div class="kh">2️⃣ 想一想：各地的街道，特色都一樣嗎？</div><div class="ka">✅ 街道有不同特色</div></div>
@@ -301,6 +302,9 @@ function allD(v){$$('.ph .ds').forEach(d=>{d.classList.toggle('show',!!v);const 
 function tlm(){$('#tlm').classList.add('on')}
 function shuf(){const b=$('#bank');[...b.children].sort(()=>Math.random()-.5).forEach(c=>b.appendChild(c))}
 shuf();
+function fsEl(){return document.fullscreenElement||document.webkitFullscreenElement}
+function fsT(){const d=document.documentElement;try{if(fsEl()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{const r=d.requestFullscreen||d.webkitRequestFullscreen;if(!r){alert('這個瀏覽器不支援全螢幕，請改用 Chrome 或 Edge，或按 F11。');return}r.call(d)}}catch(e){alert('無法進入全螢幕，請按 F11。')}}
+['fullscreenchange','webkitfullscreenchange'].forEach(v=>document.addEventListener(v,()=>{$('#fs').textContent=fsEl()?'✖ 離開全螢幕':'⛶ 全螢幕';setTimeout(()=>{fit();stk()},200)}));
 function rv(el,w){el.textContent=w;el.classList.add('s')}
 function tg2(){tg('a5');$('#w-a').classList.toggle('c')}
 function vote(el){const i=el.querySelector('i');i.textContent=+i.textContent+1;el.style.borderColor='var(--pr)'}
